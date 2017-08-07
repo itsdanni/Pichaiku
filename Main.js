@@ -35,17 +35,8 @@ import Buttons from './Buttons';
 var styles = StyleSheet.create({
   container: {
     flex: 1,
-    // justifyContent: 'flex-start',
     alignItems: 'stretch',
-    //backgroundColor: 'transparent',
-
     justifyContent: 'center',
-    //width: 320
-  },
-  backdrop: {
-    paddingTop: 60,
-    width: 320,
-    height: 120
   },
   image:{
     flexGrow:1,
@@ -68,14 +59,6 @@ var styles = StyleSheet.create({
 });
 
 class Main extends Component {
-   constructor(props) {
-    super(props);
-    //this.imageNode = this.focus.bind(this);
-  }
-
-  // componentDidMount () {
-  //   this.props.loadInitialData()
-  // }
 
   render() {
     const {image, haiku} = this.props;
@@ -89,7 +72,7 @@ class Main extends Component {
 
           <Image source={length !== 4 ? require('./seamountain.jpg') : {uri: image.uri}} style={styles.image}>
             <View >
-              <Text style={styles.headline}>{haiku.length > 1 ? haiku.join(' ') : haiku[0]}</Text>
+              <Text style={styles.headline}>{haiku.length ? haiku.join(' ') : 'Pichaiku'}</Text>
             </View>
           </Image>
 
@@ -106,7 +89,7 @@ class Main extends Component {
 const mapState = (state) => {
   return {
     image: state.image,
-    haiku: state.haiku
+    haiku: state.haiku //[]
   }
 }
 
