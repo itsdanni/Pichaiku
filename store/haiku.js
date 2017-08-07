@@ -2,9 +2,7 @@
 //import {vision} from '../server'
 
 import axios from 'axios';
-import base64 from 'base-64';
-import utf8 from 'utf8';
-import {makeHaiku} from '../utils';
+import {googleCortical, generateHaiku} from '../utils';
 import Expo from 'expo';
 
 const haiku = ['Pichaiku'];
@@ -18,39 +16,19 @@ const getHaiku = haiku => ({type: GET_HAIKU, haiku});
 // Performs label detection on the image file
 //THUNK creators: for async side effects
 export const fetchHaiku = (imageNode) =>
-  (dispatch) => {
+  dispatch =>
     Expo.takeSnapshotAsync(imageNode, {
       result: 'base64'
     })
-    .then(image =>
-    axios.post('https://vision.googleapis.com/v1/images:annotate?key=AIzaSyDXjzVKqvONaoIGdnPlgOtAkqvEWDFwoEU', {
-      requests: [
-        {
-          image: {
-            content: image
+    .then(image => googleCortical(image))
+    .then(res => {
+      console.log('response after googlemuse: ', res);
 
-          },
-          features: [
-            {
-              type: 'LABEL_DETECTION',
-              maxResults: 10
-            }
-          ]
-        }
-      ]
-    }))
-  // when response status code is 200
-  .then(res => {
-    const descriptions = res.data.responses[0].labelAnnotations.map(
-      annotation => annotation.description);
-    console.log(descriptions);
-    dispatch(getHaiku(descriptions));
-    //descriptions is an array of labels
-  })
-  .catch((error) => {
-    console.log(error);
-  })
-  }
+    })
+    .catch((error) => {
+      console.log(error);
+    })
+
 
 
 // Reducer
