@@ -1,37 +1,13 @@
 import React, { Component } from 'react';
-import {connect} from 'react-redux'
+import {connect} from 'react-redux';
 import {
   Image,
-  Dimensions,
   StyleSheet,
   Text,
   View,
-  Modal
 } from 'react-native';
 import Buttons from './Buttons';
-//import {fetchImage, fetchLabels} from './store';
 
-
-// const styles = StyleSheet.create({
-//   container: {
-//     flex: 1,
-//     flexDirection: 'row',
-//   },
-//   imageContainer: {
-//     flex: 1,
-//     alignItems: 'stretch'
-//   },
-//   image: {
-//     flex: 1
-//   },
-//   text: {
-//     fontSize: 20,
-//     textAlign: 'center',
-//     backgroundColor: 'rgba(0,0,0,0)',
-//     color: 'white'
-//   }
-
-// });
 var styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -40,31 +16,43 @@ var styles = StyleSheet.create({
   },
   image:{
     flexGrow:1,
-    height:null,
-    width:null,
+
     alignItems: 'center',
     justifyContent:'center',
   },
-  backdropView: {
-    height: 120,
-    width: 320,
-    backgroundColor: 'rgba(0,0,0,0)',
-  },
+  // backdropView: {
+  //   height: 120,
+  //   width: 320,
+  //   backgroundColor: 'rgba(0,0,0,0)',
+  // },
+  buttons: {
+   position:'absolute',
+   bottom: 0,
+   height:40,
+   backgroundColor:'transparent',
+   //justifyContent:'center',
+
+ },
   headline: {
-    fontSize: 20,
+    fontSize: 25,
     textAlign: 'center',
+    //justifyContent: 'center',
     backgroundColor: 'transparent',
-    color: 'white'
+    color: 'white',
+    justifyContent: 'center',
+    marginTop: window.height/30,
   }
 });
 
 class Main extends Component {
 
+
   render() {
     const {image, haiku} = this.props;
+
     console.log('image', image);
     const length = Object.keys(image).length;
-    console.log('imagekeysL', length)
+
     return (
       <View
         style={styles.container}
@@ -76,11 +64,10 @@ class Main extends Component {
             </View>
           </Image>
 
-      <Buttons viewDom = {this.viewDom}/>
+      <Buttons viewDom = {this.viewDom} style={styles.buttons}/>
       </View>
     )
   }
-
 }
 
 /**
@@ -89,7 +76,8 @@ class Main extends Component {
 const mapState = (state) => {
   return {
     image: state.image,
-    haiku: state.haiku //[]
+
+    haiku: state.haiku
   }
 }
 
