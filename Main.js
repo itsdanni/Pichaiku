@@ -16,15 +16,8 @@ var styles = StyleSheet.create({
   },
   image:{
     flexGrow:1,
-
-    alignItems: 'center',
     justifyContent:'center',
   },
-  // backdropView: {
-  //   height: 120,
-  //   width: 320,
-  //   backgroundColor: 'rgba(0,0,0,0)',
-  // },
   buttons: {
    position:'absolute',
    bottom: 0,
@@ -34,7 +27,7 @@ var styles = StyleSheet.create({
 
  },
   headline: {
-    fontSize: 25,
+    fontSize: 30,
     textAlign: 'center',
     //justifyContent: 'center',
     backgroundColor: 'transparent',
@@ -58,9 +51,9 @@ class Main extends Component {
         style={styles.container}
         ref={(view) => this.viewDom = view}>
 
-          <Image source={length !== 4 ? require('./seamountain.jpg') : {uri: image.uri}} style={styles.image}>
+          <Image source={length !== 4 ? require('./mountain.jpg') : {uri: image.uri}} style={styles.image}>
             <View >
-              <Text style={styles.headline}>{haiku.length ? haiku.join(' ') : 'Pichaiku'}</Text>
+              <Text style={styles.headline}>{haiku.length ? haiku : 'Pichaiku'}</Text>
             </View>
           </Image>
 
@@ -77,7 +70,7 @@ const mapState = (state) => {
   return {
     image: state.image,
 
-    haiku: state.haiku
+    haiku: state.haiku.map(arr => arr.join(' ')).join(',')
   }
 }
 
