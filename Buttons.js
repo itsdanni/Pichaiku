@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { StyleSheet} from 'react-native';
-//import ActionButton from 'react-native-action-button';
 import ActionButton from 'react-native-circular-action-menu';
 import Icon from 'react-native-vector-icons/Ionicons';
 import {connect} from 'react-redux';
